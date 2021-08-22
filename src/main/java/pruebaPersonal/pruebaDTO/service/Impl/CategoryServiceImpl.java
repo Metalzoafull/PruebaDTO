@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import pruebaPersonal.pruebaDTO.dto.CategoryDTO;
@@ -84,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void edit(Long id, CategoryDTO categoryDTO) {
+    public ResponseEntity<String> edit(Long id, CategoryDTO categoryDTO) {
         try {
             Category category = findById(id);
             if(categoryDTO.getName() != null){
@@ -97,6 +98,8 @@ public class CategoryServiceImpl implements CategoryService {
                 category.setImage(categoryDTO.getImage());
             }
             categoryRepository.save(category);
+            String updateValid = messageSource.getMessage("update.valid",new Object[]{"Category"}, LocaleContextHolder.getLocale());
+            return ResponseEntity.ok(updateValid);
         }catch (Exception e){
             String notFoundMsg = messageSource.getMessage("no.found", new Object[]{"Category"}, LocaleContextHolder.getLocale());
             throw new ResponseStatusException(HttpStatus.OK, notFoundMsg);

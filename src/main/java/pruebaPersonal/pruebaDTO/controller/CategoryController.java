@@ -37,6 +37,11 @@ public class CategoryController {
         return categoryService.findAllName();
     }
 
+    @PutMapping("categoryEdit/{id}")
+    public ResponseEntity<String> edit(@RequestBody CategoryDTO categoryDTO ,@PathVariable("id") Long id){
+        return categoryService.edit(id,categoryDTO);
+    }
+
 
 
 }

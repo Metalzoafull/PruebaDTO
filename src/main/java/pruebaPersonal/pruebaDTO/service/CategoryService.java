@@ -1,5 +1,6 @@
 package pruebaPersonal.pruebaDTO.service;
 
+import org.springframework.http.ResponseEntity;
 import pruebaPersonal.pruebaDTO.dto.CategoryDTO;
 import pruebaPersonal.pruebaDTO.model.Category;
 
@@ -19,5 +20,5 @@ public interface CategoryService {
 
     List<String> findAllName();
 
-    void edit(Long id, CategoryDTO categoryDTO);
+    ResponseEntity<String> edit(Long id, CategoryDTO categoryDTO);
 }
